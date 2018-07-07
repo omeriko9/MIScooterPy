@@ -1,7 +1,7 @@
 # MIScooterPy
 
 Python code for communicating with Xiaomi M365 Scooter over GATT using bluepy.
-Based on the [profound reversing work of @CamiAlfe](https://github.com/CamiAlfa/M365-BLE-PROTOCOL/blob/master/protocolo)
+Based on the [profound reversing work of Camilo Ruiz](https://github.com/CamiAlfa/M365-BLE-PROTOCOL/blob/master/protocolo)
 
 ## Installation
 Make sure [bluepy](https://github.com/IanHarvey/bluepy) is installed
