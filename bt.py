@@ -36,21 +36,19 @@ class ScooterMessage:
         data.extend(Commands[cmdname]) # pos 6+7: Command + Param
         #data.extend(b'\xff') # pos 7: Param
         data[2] = len(data)-4
+        
+        # Compute & add checksum
         sum=0
-
         for x in data[2:]:
             sum=sum+x
         sum = sum ^ 0xffff
         data.append(sum & 0xff)
         data.append(sum >> 8 & 0xff)
-       
+      
         print("checksum: " + hex(sum))
         print("Data: " +phex(data))
+      
         self.data = data
-
-    @classmethod
-    def fromscooter(cls, raw):
-        cls()
 
 class CommManager:
 
@@ -68,7 +66,7 @@ class CommManager:
         
         self.dev.withDelegate( MyDelegate() )
 
-        # Turn on notifications
+        # Turn on notifications, otherwise there won't be any notification (took me a couple of days to figure that one out)
         self.dev.writeCharacteristic(0xc, b'\x01\x00', True)
         self.dev.writeCharacteristic(0x12, b'\x01\x00', True)
 
@@ -76,7 +74,7 @@ class CommManager:
         msg=ScooterMessage(cmdname, dirname)
         self.dev.writeCharacteristic(CommManager.TXhandle, msg.data)
 
-        # Invoke Response
+        # Poke to get Response
         self.dev.readCharacteristic(CommManager.RXhandle)
         self.dev.waitForNotifications(1.0)
         self.dev.waitForNotifications(1.0)
