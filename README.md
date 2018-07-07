@@ -10,9 +10,11 @@ Make sure [bluepy](https://github.com/IanHarvey/bluepy) is installed
 ## Usage
 
 ```python
-com=CommManager('AA:AA:AA:AA:AA:AA') # Use real MAC address
+myMAC='AA:AA:AA:AA:AA:AA'
+com=CommManager(myMAC)
 com.connect()
 com.send('GetSerial')
+# Response will be printed to console
 com.send('GetFirmware')
 com.send('GetPincode')
 ```
