@@ -93,7 +93,8 @@ class MyDelegate(btle.DefaultDelegate):
             pass
 
 
-com=CommManager()
+myMAC='AA:AA:AA:AA:AA:AA'
+com=CommManager(myMAC)
 com.connect()
 com.send('GetSerial')
 com.send('GetFirmware')
